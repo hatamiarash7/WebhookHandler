@@ -54,4 +54,6 @@ app.use((err, req, res, next) => {
   res.status(403).send("Request body was not signed or verification failed");
 });
 
+process.stdout.write("Handler is runnig ...\n");
+
 app.listen(3000);
