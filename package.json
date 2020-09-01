@@ -11,12 +11,13 @@
     "url": "git+https://github.com/hatamiarash7/WebhookHandler.git"
   },
   "keywords": [
-    "webhook"
+    "webhook",
+    "github"
   ],
   "author": "hatamiarash7",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/hatamiarash7/WebhookHandler/issues"
   },
-  "homepage": "https://github.com/hatamiarash7/WebhookHandler#readme"
+  "homepage": "https://github.com/hatamiarash7/WebhookHandler"
 }
