@@ -1,8 +1,15 @@
 const crypto = require("crypto");
 const express = require("express");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 
-const secret = CHANGE_ME;
+const result = dotenv.config();
+
+if (result.error) {
+  throw result.error;
+}
+
+const secret = process.env.SECRET;
 
 // GitHub: X-Hub-Signature
 // Gogs:   X-Gogs-Signature
