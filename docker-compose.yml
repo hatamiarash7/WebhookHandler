@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  webhook:
+    image: hatamiarash7/webhook
+    restart: unless-stopped
+    container_name: server
+    volumes:
+      - ./:/usr/src/app/
+    networks:
+      - webhook
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      # HTTPS
+      - "traefik.http.routers.webhook.rule=Host(`webhook.arash-hatami.ir`)"
+      - "traefik.http.routers.webhook.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.webhook.entrypoints=websecure"
+      - "traefik.http.routers.webhook.service=webhook"
+      - "traefik.http.services.webhook.loadbalancer.server.port=3000"
+      # HTTP
+      - "traefik.http.routers.webhook-http.rule=Host(`webhook.arash-hatami.ir`)"
+      - "traefik.http.routers.webhook-http.entrypoints=web"
+      - "traefik.http.routers.webhook-http.middlewares=webhook-https@docker"
+      - "traefik.http.middlewares.webhook-https.redirectscheme.scheme=https"
+
+networks:
+  webhook:
+    external: false
+    driver: bridge
+  traefik:
+    external: true
