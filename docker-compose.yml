@@ -14,13 +14,13 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
       # HTTPS
-      - "traefik.http.routers.webhook.rule=Host(`webhook.arash-hatami.ir`)"
+      - "traefik.http.routers.webhook.rule=Host(`webhook.domain`)"
       - "traefik.http.routers.webhook.tls.certresolver=letsencrypt"
       - "traefik.http.routers.webhook.entrypoints=websecure"
       - "traefik.http.routers.webhook.service=webhook"
       - "traefik.http.services.webhook.loadbalancer.server.port=3000"
       # HTTP
-      - "traefik.http.routers.webhook-http.rule=Host(`webhook.arash-hatami.ir`)"
+      - "traefik.http.routers.webhook-http.rule=Host(`webhook.domain`)"
       - "traefik.http.routers.webhook-http.entrypoints=web"
       - "traefik.http.routers.webhook-http.middlewares=webhook-https@docker"
       - "traefik.http.middlewares.webhook-https.redirectscheme.scheme=https"
