@@ -14,7 +14,7 @@ SECRET=changeme
 
 Use this value in github settings :
 
-![secret](https://github-images.s3.amazonaws.com/enterprise/2.16/assets/images/enterprise/site-admin-settings/add-global-webhook-secret.png)
+![secret](.github/secret.png)
 
 ## Run
 
