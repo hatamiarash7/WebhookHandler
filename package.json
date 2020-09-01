@@ -1,0 +1,22 @@
+{
+  "name": "webhookhandler",
+  "version": "1.0.0",
+  "description": "Webhook Handler for Github",
+  "main": "hook.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hatamiarash7/WebhookHandler.git"
+  },
+  "keywords": [
+    "webhook"
+  ],
+  "author": "hatamiarash7",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hatamiarash7/WebhookHandler/issues"
+  },
+  "homepage": "https://github.com/hatamiarash7/WebhookHandler#readme"
+}
