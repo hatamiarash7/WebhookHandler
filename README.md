@@ -6,13 +6,21 @@ A Webhook Handler for Github
 
 ## Configure
 
-You need to set a decret for using webhooks. Create a `.env` like this :
+You need to set a env variables for using webhooks. Create a `.env` like this :
 
 ```env
 SECRET=changeme
+
+DB_CONNECTION="mongodb://localhost:27017/webhook"
+
+# Github:  X-Hub-Signature
+# Gitlab:  X-Gitlab-Token
+# Gogs:    X-Gogs-Signature
+# Gitea:   HTTP_X_GITEA_SIGNATURE
+SIGNATURE="X-Hub-Signature"
 ```
 
-Use this value in github settings :
+Use `SECRET` value in github settings :
 
 ![secret](.github/secret.png)
 
