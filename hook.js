@@ -28,6 +28,21 @@ connection.once("open", function () {
   Schema = mongoose.Schema;
 });
 
+function sign(data) {
+  const hmac = crypto.createHmac("sha1", secret);
+  const ourSignature = `sha1=${hmac.update(data).digest("hex")}`;
+  return ourSignature;
+}
+
+function verify(signature, data) {
+  const sig = Buffer.from(signature, "utf8");
+  const signed = Buffer.from(sign(data, "utf8"));
+  if (sig.length !== signed.length) {
+    return false;
+  }
+  return crypto.timingSafeEqual(sig, signed);
+}
+
 function verifyPostData(req, _, next) {
   const payload = JSON.stringify(req.body);
 
@@ -35,21 +50,8 @@ function verifyPostData(req, _, next) {
     return next("Request body empty");
   }
 
-  const sig = req.get(sigHeaderName) || "";
-  const hmac = crypto.createHmac("sha1", secret);
-  const digest = Buffer.from(
-    "sha1=" + hmac.update(payload).digest("hex"),
-    "utf8"
-  );
-  const checksum = Buffer.from(sig, "utf8");
-
-  if (
-    checksum.length !== digest.length ||
-    !crypto.timingSafeEqual(digest, checksum)
-  ) {
-    return next(
-      `Request body digest (${digest}) did not match ${sigHeaderName} (${checksum})`
-    );
+  if (!verify(req.get(sigHeaderName), payload)) {
+    return next(`Request body digest did not match`);
   }
 
   return next();
