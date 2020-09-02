@@ -26,6 +26,8 @@ Use `SECRET` value in github settings :
 
 ![secret](.github/secret.png)
 
+**Important** : You should select `application/json` for content type.
+
 ## Run
 
 ```bash
