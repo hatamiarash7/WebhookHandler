@@ -47,6 +47,6 @@ docker run -d
 
 ## ToDo
 
-- [x] Connect to DB
+- [x] ~~Connect to DB~~
 - [ ] Test with git platforms
-- [x] Configure a logger
+- [x] ~~Configure a logger~~
