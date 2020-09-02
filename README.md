@@ -45,4 +45,5 @@ docker run -d
 
 ## ToDo
 
-- [ ] Connect to DB
+- [x] Connect to DB
+- [ ] Test with git platforms
