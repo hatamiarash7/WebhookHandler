@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const pino = require("pino");
-const expressPino = require("express-pino-logger");
+const path = require("path");
 
 const result = dotenv.config();
 if (result.error) {
@@ -55,7 +55,11 @@ function verifyPostData(req, res, next) {
   return next();
 }
 
-app.post("/", verifyPostData, function (req, res) {
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
+
+app.post("/hook", verifyPostData, function (req, res) {
   const collectionSchema = new Schema({}, { strict: false });
   const collection = mongoose.model("github", collectionSchema);
   const collectionData = new collection(req.body);
@@ -70,6 +74,6 @@ app.use((err, req, res, next) => {
   res.status(403).send("Request body was not signed or verification failed");
 });
 
-logger.debug("Handler is runnig");
+logger.info("Handler is runnig");
 
 app.listen(3000);
