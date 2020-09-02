@@ -7,6 +7,10 @@ services:
     container_name: server
     volumes:
       - ./:/usr/src/app/
+    environment:
+      - SECRET=changeme
+      - DB_CONNECTION=mongodb://localhost:27017/webhook
+      - SIGNATURE=X-Hub-Signature
     networks:
       - webhook
       - traefik

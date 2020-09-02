@@ -35,7 +35,12 @@ Or use docker
 
 ```bash
 docker pull hatamiarash7/webhook
-docker run -p 49160:3000 -d hatamiarash7/webhook
+docker run -d
+    -p 49160:3000
+    -e SECRET='changeme'
+    -e DB_CONNECTION='mongodb://localhost:27017/webhook'
+    -e SIGNATURE='X-Hub-Signature'
+    hatamiarash7/webhook
 ```
 
 ## ToDo
