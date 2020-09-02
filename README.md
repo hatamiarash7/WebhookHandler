@@ -40,4 +40,5 @@ docker run -p 49160:3000 -d hatamiarash7/webhook
 
 ## ToDo
 
-- [ ] Connect to DB
+- [x] Connect to DB
+- [ ] Test with git platforms
