@@ -71,8 +71,7 @@ app.post("/hook", verifyPostData, function (req, res) {
 });
 
 app.use((err, _, res, __) => {
-  if (err) console.error(err);
-  logger.error("Request body was not signed or verification failed");
+  if (err) logger.error(err);
   res.status(403).send("Request body was not signed or verification failed");
 });
 
