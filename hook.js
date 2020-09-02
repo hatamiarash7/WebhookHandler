@@ -28,7 +28,7 @@ connection.once("open", function () {
   Schema = mongoose.Schema;
 });
 
-function verifyPostData(req, res, next) {
+function verifyPostData(req, _, next) {
   const payload = JSON.stringify(req.body);
 
   if (!payload) {
@@ -55,7 +55,7 @@ function verifyPostData(req, res, next) {
   return next();
 }
 
-app.get("/", function (req, res) {
+app.get("/", function (_, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
@@ -68,7 +68,7 @@ app.post("/hook", verifyPostData, function (req, res) {
   res.status(200).send();
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _, res, __) => {
   if (err) console.error(err);
   logger.error("Request body was not signed or verification failed");
   res.status(403).send("Request body was not signed or verification failed");
