@@ -42,6 +42,7 @@ docker run -d
     -e SECRET='changeme'
     -e DB_CONNECTION='mongodb://localhost:27017/webhook'
     -e SIGNATURE='X-Hub-Signature'
+    -e LOG_LEVEL='debug'
     hatamiarash7/webhook
 ```
 

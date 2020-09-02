@@ -10,6 +10,7 @@ services:
       - SECRET=changeme
       - DB_CONNECTION=mongodb://mongo:27017/webhook
       - SIGNATURE=X-Hub-Signature
+      - LOG_LEVEL=debug
     networks:
       - webhook
     ports:
