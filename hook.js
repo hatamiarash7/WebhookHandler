@@ -25,7 +25,7 @@ connection.once("open", function () {
 const app = express();
 app.use(bodyParser.json());
 
-function verifyPostData(req, _, next) {
+function verifyPostData(req, res, next) {
   const payload = JSON.stringify(req.body);
 
   if (!payload) {
@@ -61,7 +61,7 @@ app.post("/", verifyPostData, function (req, res) {
   res.status(200).send();
 });
 
-app.use((err, _, res, _) => {
+app.use((err, req, res, next) => {
   if (err) console.error(err);
   console.log("Request body was not signed or verification failed");
   res.status(403).send("Request body was not signed or verification failed");
