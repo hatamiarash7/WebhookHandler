@@ -49,4 +49,4 @@ docker run -d
 
 - [x] Connect to DB
 - [ ] Test with git platforms
-- [ ] Configure a logger
+- [x] Configure a logger
