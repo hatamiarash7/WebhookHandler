@@ -20,12 +20,14 @@ const logger = pino({ level: process.env.LOG_LEVEL || "info" });
 const app = express();
 app.use(bodyParser.json());
 
-let Schema;
+let Schema, collectionSchema, collection;
 mongoose.connect(db_uri, { useUnifiedTopology: true, useNewUrlParser: true });
 const connection = mongoose.connection;
 connection.once("open", function () {
   logger.info("MongoDB connection established");
   Schema = mongoose.Schema;
+  collectionSchema = new Schema({}, { strict: false });
+  collection = mongoose.model("github", collectionSchema);
 });
 
 function sign(data) {
@@ -62,8 +64,6 @@ app.get("/", function (_, res) {
 });
 
 app.post("/hook", verifyPostData, function (req, res) {
-  const collectionSchema = new Schema({}, { strict: false });
-  const collection = mongoose.model("github", collectionSchema);
   const collectionData = new collection(req.body);
   collectionData.save();
   logger.debug("Data received");
