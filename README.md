@@ -48,7 +48,7 @@ docker run -d
 
 ![screenshot](.github/screenshot.png)
 
-## ToDo
+## To-Do
 
 - [x] Connect to DB
 - [ ] Test with git platforms
