@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 const result = dotenv.config();
 
@@ -10,15 +11,21 @@ if (result.error) {
 }
 
 const secret = process.env.SECRET;
+const db_uri = process.env.DB_CONNECTION;
+const sigHeaderName = process.env.SIGNATURE;
 
-// GitHub: X-Hub-Signature
-// Gogs:   X-Gogs-Signature
-const sigHeaderName = "X-Hub-Signature";
+let Schema;
+mongoose.connect(db_uri, { useUnifiedTopology: true, useNewUrlParser: true });
+const connection = mongoose.connection;
+connection.once("open", function () {
+  console.log("MongoDB connection established");
+  Schema = mongoose.Schema;
+});
 
 const app = express();
 app.use(bodyParser.json());
 
-function verifyPostData(req, res, next) {
+function verifyPostData(req, _, next) {
   const payload = JSON.stringify(req.body);
 
   if (!payload) {
@@ -46,14 +53,20 @@ function verifyPostData(req, res, next) {
 }
 
 app.post("/", verifyPostData, function (req, res) {
-  res.status(200).send("Request body was signed");
+  const collectionSchema = new Schema({}, { strict: false });
+  const collection = mongoose.model("github", collectionSchema);
+  const collectionData = new collection(req.body);
+  collectionData.save();
+  console.log(`Data received`);
+  res.status(200).send();
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _, res, _) => {
   if (err) console.error(err);
+  console.log("Request body was not signed or verification failed");
   res.status(403).send("Request body was not signed or verification failed");
 });
 
-process.stdout.write("Handler is runnig ...\n");
+console.log("Handler is runnig");
 
 app.listen(3000);
