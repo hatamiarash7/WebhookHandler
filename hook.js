@@ -16,10 +16,8 @@ const db_uri = process.env.DB_CONNECTION;
 const sigHeaderName = process.env.SIGNATURE;
 
 const logger = pino({ level: process.env.LOG_LEVEL || "info" });
-const expressLogger = expressPino({ logger });
 
 const app = express();
-app.use(expressLogger);
 app.use(bodyParser.json());
 
 let Schema;
