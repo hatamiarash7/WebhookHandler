@@ -4,34 +4,31 @@ services:
   webhook:
     image: hatamiarash7/webhook
     restart: unless-stopped
-    container_name: server
     volumes:
       - ./:/usr/src/app/
     environment:
       - SECRET=changeme
-      - DB_CONNECTION=mongodb://localhost:27017/webhook
+      - DB_CONNECTION=mongodb://mongo:27017/webhook
       - SIGNATURE=X-Hub-Signature
     networks:
       - webhook
-      - traefik
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      # HTTPS
-      - "traefik.http.routers.webhook.rule=Host(`webhook.domain`)"
-      - "traefik.http.routers.webhook.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.webhook.entrypoints=websecure"
-      - "traefik.http.routers.webhook.service=webhook"
-      - "traefik.http.services.webhook.loadbalancer.server.port=3000"
-      # HTTP
-      - "traefik.http.routers.webhook-http.rule=Host(`webhook.domain`)"
-      - "traefik.http.routers.webhook-http.entrypoints=web"
-      - "traefik.http.routers.webhook-http.middlewares=webhook-https@docker"
-      - "traefik.http.middlewares.webhook-https.redirectscheme.scheme=https"
+    ports:
+      - 4296:3000
+
+  mongo:
+    image: mongo:4.2.3
+    restart: unless-stopped
+    volumes:
+      - mongo-data-1:/data/db
+      - mongo-config-1:/data/configdb
+    networks:
+      - webhook
 
 networks:
   webhook:
     external: false
     driver: bridge
-  traefik:
-    external: true
+
+volumes:
+  mongo-data-1:
+  mongo-config-1:
