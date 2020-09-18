@@ -6,7 +6,7 @@ A Webhook Handler for Github, Gitlab, .... It's just a simple parser and you sho
 
 ## Configure
 
-You need to set a env variables for using webhooks. Create a `.env` like this :
+You need to set env variables for using webhooks. Create a `.env` like this :
 
 ```env
 SECRET=changeme
