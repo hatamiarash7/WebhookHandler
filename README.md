@@ -60,6 +60,8 @@ docker run -d
     - [ ] Gogs
 - [x] Configure a logger
 
+---
+
 ## Support
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D1WGU9)
