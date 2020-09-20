@@ -1,10 +1,13 @@
-const crypto = require("crypto");
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const pino = require("pino");
 const path = require("path");
+const verification = require("./verification");
+const utils = require("./utils");
+
+// --------------------------------------------------------------------------------- //
 
 const result = dotenv.config();
 if (result.error) {
@@ -13,7 +16,8 @@ if (result.error) {
 
 const secret = process.env.SECRET;
 const db_uri = process.env.DB_CONNECTION;
-const sigHeaderName = process.env.SIGNATURE;
+const provider = process.env.PROVIDER;
+const sigHeaderName = utils.getHeader(provider);
 
 const logger = pino({ level: process.env.LOG_LEVEL || "info" });
 
@@ -27,23 +31,10 @@ connection.once("open", function () {
   logger.info("MongoDB connection established");
   Schema = mongoose.Schema;
   collectionSchema = new Schema({}, { strict: false });
-  collection = mongoose.model("github", collectionSchema);
+  collection = mongoose.model(provider, collectionSchema);
 });
 
-function sign(data) {
-  const hmac = crypto.createHmac("sha1", secret);
-  const ourSignature = `sha1=${hmac.update(data).digest("hex")}`;
-  return ourSignature;
-}
-
-function verify(signature, data) {
-  const sig = Buffer.from(signature, "utf8");
-  const signed = Buffer.from(sign(data, "utf8"));
-  if (sig.length !== signed.length) {
-    return false;
-  }
-  return crypto.timingSafeEqual(sig, signed);
-}
+// --------------------------------------------------------------------------------- //
 
 function verifyPostData(req, _, next) {
   const payload = JSON.stringify(req.body);
@@ -52,23 +43,29 @@ function verifyPostData(req, _, next) {
     return next("Request body empty");
   }
 
-  if (!verify(req.get(sigHeaderName), payload)) {
+  if (!verification.verify(req.get(sigHeaderName), payload, secret)) {
     return next(`Request body digest did not match`);
   }
 
   return next();
 }
 
-app.get("/", function (_, res) {
-  res.sendFile(path.join(__dirname + "/index.html"));
-});
-
-app.post("/hook", verifyPostData, function (req, res) {
+function response(req, res) {
   const collectionData = new collection(req.body);
   collectionData.save();
   logger.debug("Data received");
   res.status(200).send();
+}
+
+// --------------------------------------------------------------------------------- //
+
+app.get("/", function (_, res) {
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
+
+app.post(["/github", "/gitlab", "/gitea", "/gogs"], verifyPostData, response);
+
+// --------------------------------------------------------------------------------- //
 
 app.use((err, _, res, __) => {
   if (err) logger.error(err);
