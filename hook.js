@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const pino = require("pino");
 const path = require("path");
 const verification = require("./verification");
-const utils = require("./utils");
+const utils = require("./utils").default;
 
 // --------------------------------------------------------------------------------- //
 

@@ -13,4 +13,4 @@ const getHeader = function (provider) {
   }
 };
 
-module.exports = { getHeader };
+export default { getHeader };
