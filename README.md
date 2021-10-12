@@ -24,7 +24,7 @@ LOG_LEVEL=info
 
 Use `SECRET` value in github settings :
 
-![secret](.github/secret.png)
+![secret](.github/secret.webp)
 
 **Important** : You should select `application/json` for content type.
 
@@ -48,21 +48,23 @@ docker run -d
     hatamiarash7/webhook
 ```
 
-![screenshot](.github/screenshot.png)
+![screenshot](.github/screenshot.webp)
 
 ## To-Do
 
 - [x] Connect to DB
 - [ ] Test with git platforms
-    - [x] Github
-    - [ ] Gitlab
-    - [ ] Gitea
-    - [ ] Gogs
+  - [x] Github
+  - [ ] Gitlab
+  - [ ] Gitea
+  - [ ] Gogs
 - [x] Configure a logger
 
 ---
 
 ## Support
+
+[![Donate with Bitcoin](https://en.cryptobadges.io/badge/micro/3GhT2ABRuHuXGNzP6DH5KvLZRTXCBKkx2y)](https://en.cryptobadges.io/donate/3GhT2ABRuHuXGNzP6DH5KvLZRTXCBKkx2y) [![Donate with Ethereum](https://en.cryptobadges.io/badge/micro/0x4832fd8e2cfade141dc4873cc00cf77de604edde)](https://en.cryptobadges.io/donate/0x4832fd8e2cfade141dc4873cc00cf77de604edde)
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/D1D1WGU9)
 
@@ -74,7 +76,7 @@ docker run -d
 2. Create your feature branch : `git checkout -b my-new-feature`
 3. Commit your changes : `git commit -am 'Add some feature'`
 4. Push to the branch : `git push origin my-new-feature`
-5. Submit a pull request :D
+5. Submit a pull request 😃
 
 ## Issues
 
