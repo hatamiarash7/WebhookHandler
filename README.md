@@ -13,6 +13,8 @@ SECRET=changeme
 
 DB_CONNECTION="mongodb://localhost:27017/webhook"
 
+PROVIDER=github
+
 # Github:  X-Hub-Signature
 # Gitlab:  X-Gitlab-Token
 # Gogs:    X-Gogs-Signature
@@ -43,6 +45,7 @@ docker run -d
     -p 49160:3000
     -e SECRET='changeme'
     -e DB_CONNECTION='mongodb://localhost:27017/webhook'
+    -e PROVIDER='github'
     -e SIGNATURE='X-Hub-Signature'
     -e LOG_LEVEL='debug'
     hatamiarash7/webhook
