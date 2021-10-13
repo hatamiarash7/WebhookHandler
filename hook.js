@@ -51,9 +51,9 @@ function verifyPostData(req, _, next) {
 }
 
 function response(req, res) {
+  logger.debug("Data received");
   const collectionData = new collection(req.body);
   collectionData.save();
-  logger.debug("Data received");
   res.status(200).send();
 }
 
