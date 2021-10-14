@@ -10,6 +10,6 @@ RUN npm ci --only=production
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD [ "node", "hook.js" ]
