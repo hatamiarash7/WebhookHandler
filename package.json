@@ -1,7 +1,7 @@
 {
   "name": "webhookhandler",
   "version": "1.0.0",
-  "description": "Webhook Handler for Github",
+  "description": "Webhook Handler for GitHub, Gitlab, Gitea, ...",
   "main": "hook.js",
   "scripts": {
     "start": "node hook.js",
@@ -13,7 +13,9 @@
   },
   "keywords": [
     "webhook",
-    "github"
+    "github",
+    "gitlab",
+    "gitea"
   ],
   "author": "hatamiarash7",
   "license": "GPL-3.0",
