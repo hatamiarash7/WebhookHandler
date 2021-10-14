@@ -60,7 +60,7 @@ function response(req, res) {
 // --------------------------------------------------------------------------------- //
 
 app.get("/", function (_, res) {
-  res.sendFile(path.join(__dirname + "/asset/index.html"));
+  res.sendFile(path.join(__dirname + "/index.html"));
 });
 
 app.post(["/github", "/gitlab", "/gitea", "/gogs"], verifyPostData, response);
