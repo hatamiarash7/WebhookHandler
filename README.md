@@ -62,6 +62,7 @@ docker run -d
     -e PROVIDER='github'
     -e SIGNATURE='X-Hub-Signature'
     -e LOG_LEVEL='debug'
+    -e TRUST_KEY='changeme'
     hatamiarash7/webhook
 ```
 
