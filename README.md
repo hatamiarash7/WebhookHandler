@@ -67,6 +67,23 @@ docker run -d
 
 ![screenshot](.github/screenshot.webp)
 
+## Log
+
+We have 6 level for logging
+
+- trace
+- debug
+- info
+- warn
+- error
+- fatal
+
+Set any level in `env.` file :
+
+```env
+LOG_LEVEL=info
+```
+
 ## To-Do
 
 - [x] Connect to DB
