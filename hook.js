@@ -37,6 +37,14 @@ connection.once("open", function () {
 // --------------------------------------------------------------------------------- //
 
 function verifyPostData(req, _, next) {
+  if (req.query.trusted) {
+    if (req.query.trusted == process.env.TRUST_KEY) {
+      return next();
+    } else {
+      logger.info("Trust key is wrong");
+    }
+  }
+
   const payload = JSON.stringify(req.body);
 
   if (!payload) {

@@ -22,6 +22,8 @@ PROVIDER=github
 SIGNATURE="X-Hub-Signature"
 
 LOG_LEVEL=info
+
+TRUST_KEY=changeme
 ```
 
 Use `SECRET` value in github settings :
@@ -29,6 +31,18 @@ Use `SECRET` value in github settings :
 ![secret](.github/secret.webp)
 
 **Important** : You should select `application/json` for content type.
+
+### Trusted platforms
+
+For use with trusted platforms or offline/local usage, you can pass a `trusted` query to webhook URL. For example :
+
+```txt
+http://<domain>/gitlab?trusted=1234
+```
+
+Now, the program will ignore verification and catch anything received.
+
+❕ This query value should equal to `TRUST_KEY` variable from your `env.` file.
 
 ## Run
 
