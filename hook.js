@@ -19,9 +19,11 @@ const db_uri = process.env.DB_CONNECTION;
 const provider = process.env.PROVIDER;
 const sigHeaderName = utils.getHeader(provider);
 
+//TODO: Use `useLevelLabels`
 const logger = pino({ level: process.env.LOG_LEVEL || "info" });
 
 const app = express();
+//FIXME: Change bodyparser
 app.use(bodyParser.json());
 
 let Schema, collectionSchema, collection;
