@@ -25,7 +25,7 @@ const app = express();
 app.use(bodyParser.json());
 
 let Schema, collectionSchema, collection;
-mongoose.connect(db_uri, { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(db_uri, { autoCreate: false });
 const connection = mongoose.connection;
 connection.once("open", function () {
   logger.info("MongoDB connection established");
@@ -52,7 +52,7 @@ function verifyPostData(req, _, next) {
   }
 
   if (!verification.verify(req.get(sigHeaderName), payload, secret)) {
-    return next(`Request body digest did not match`);
+    return next("Request body digest did not match");
   }
 
   return next();
