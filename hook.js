@@ -25,7 +25,7 @@ const app = express();
 app.use(bodyParser.json());
 
 let Schema, collectionSchema, collection;
-mongoose.connect(db_uri, { autoCreate: false });
+mongoose.connect(db_uri, { autoCreate: true });
 const connection = mongoose.connection;
 connection.once("open", function () {
   logger.info("MongoDB connection established");
