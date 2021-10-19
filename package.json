@@ -1,6 +1,6 @@
 {
   "name": "webhookhandler",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Webhook Handler for GitHub, Gitlab, Gitea, ...",
   "main": "hook.js",
   "scripts": {
