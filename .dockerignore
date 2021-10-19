@@ -5,3 +5,7 @@ npm-debug.log
 docker-compose.yml
 LICENSE
 README.md
+.github
+.vscode
+.gitignore
+.gitattributes
