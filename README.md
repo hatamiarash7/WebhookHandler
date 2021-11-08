@@ -66,7 +66,7 @@ docker run -d
     hatamiarash7/webhook
 ```
 
-![screenshot](.github/screenshot.webp)
+![screenshot](.github/webhook.webp)
 
 ## Log
 
