@@ -14,7 +14,7 @@ services:
     networks:
       - webhook
     ports:
-      - 4296:3000
+      - 0.0.0.0:4296:3000
 
   mongo:
     image: mongo:5.0.3
