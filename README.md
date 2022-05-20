@@ -1,6 +1,6 @@
 # Webhook Handler
 
-[![GitHub license](https://img.shields.io/github/license/hatamiarash7/WebhookHandler)](https://github.com/hatamiarash7/WebhookHandler/blob/master/LICENSE) [![Docker](https://github.com/hatamiarash7/WebhookHandler/actions/workflows/docker.yml/badge.svg)](https://github.com/hatamiarash7/WebhookHandler/actions/workflows/docker.yml) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/hatamiarash7/webhook)
+[![GitHub license](https://img.shields.io/github/license/hatamiarash7/WebhookHandler)](https://github.com/hatamiarash7/WebhookHandler/blob/master/LICENSE) [![Docker](https://github.com/hatamiarash7/WebhookHandler/actions/workflows/docker.yml/badge.svg)](https://github.com/hatamiarash7/WebhookHandler/actions/workflows/docker.yml) ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/hatamiarash7/webhook/latest)
 
 A Webhook Handler for Github, Gitlab, .... It's just a simple parser and you should extend this project if you need a visualization.
 
