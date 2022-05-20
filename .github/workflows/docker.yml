@@ -1,0 +1,94 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "Dockerfile"
+      - ".github/workflows/docker.yml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "Dockerfile"
+      - ".github/workflows/docker.yml"
+
+env:
+  IMAGE_NAME: hatamiarash7/webhook
+  GITHUB_IMAGE_NAME: ${{ github.repository }}/webhook
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cancel previous workflow
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+      - uses: actions/checkout@v3
+
+      - name: Build image
+        run: docker build -t test .
+
+      - name: Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: test
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Lint Docker files
+        uses: hadolint/hadolint-action@v2.1.0
+        with:
+          verbose: true
+          ignore: "DL3008,DL3025"
+          failure-threshold: "error"
+
+  push:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create image name
+        id: github-image
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ghcr.io/${{ env.GITHUB_IMAGE_NAME }}
+
+      - name: Get Current Date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: Build image
+        run: >
+          docker build
+          -t ${{ env.IMAGE_NAME }}
+          -t ${{ steps.github-image.outputs.lowercase }}
+          --build-arg DATE_CREATED=${{ steps.date.outputs.date }}
+          -f Dockerfile
+          .
+
+      - name: Push to Dockerhub
+        run: |
+          docker login -u hatamiarash7 -p "${{ secrets.DOCKERHUB_TOKEN }}"
+          docker push ${{ env.IMAGE_NAME }}
+
+      - name: Push to Github
+        run: |
+          docker login -u hatamiarash7 -p "${{ secrets.GB_TOKEN }}" ghcr.io
+          docker push ${{ steps.github-image.outputs.lowercase }}
