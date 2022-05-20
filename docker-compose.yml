@@ -17,7 +17,7 @@ services:
       - 0.0.0.0:4296:3000
 
   mongo:
-    image: mongo:5.0.3
+    image: mongo:5.0.8
     restart: unless-stopped
     volumes:
       - mongo-data-1:/data/db
