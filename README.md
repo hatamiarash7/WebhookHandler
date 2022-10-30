@@ -79,7 +79,7 @@ We have 6 level for logging
 - error
 - fatal
 
-Set any level in `env.` file :
+Set any level in `.env` file :
 
 ```env
 LOG_LEVEL=info
