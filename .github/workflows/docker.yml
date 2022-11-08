@@ -66,7 +66,7 @@ jobs:
 
       - name: Create image name
         id: github-image
-        uses: ASzc/change-string-case-action@v4
+        uses: ASzc/change-string-case-action@v5
         with:
           string: ghcr.io/${{ env.GITHUB_IMAGE_NAME }}
 
