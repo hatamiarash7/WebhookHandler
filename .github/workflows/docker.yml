@@ -48,7 +48,7 @@ jobs:
           sarif_file: "trivy-results.sarif"
 
       - name: Lint Docker files
-        uses: hadolint/hadolint-action@v2.1.0
+        uses: hadolint/hadolint-action@v3.0.0
         with:
           verbose: true
           ignore: "DL3008,DL3025"
